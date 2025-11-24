@@ -152,23 +152,21 @@ export default function Home() {
 
           {/* Main Layout: Watchlist + All Stocks (Left) | Market Movers (Right) on Desktop */}
           <div className="mb-8 md:mb-12">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-              {/* Left Column - Watchlist and All Stocks stacked (2 columns) */}
-              <div className="lg:col-span-2 space-y-6 md:space-y-8">
-                {/* Watchlist */}
-                <div>
-                  <Watchlist />
-                </div>
-                
-                {/* All Stocks */}
-                <div>
-                  <AllStocks />
-                </div>
+            {/* Mobile: Flex column with custom order | Desktop: Grid layout */}
+            <div className="flex flex-col lg:grid lg:grid-cols-3 gap-6 md:gap-8">
+              {/* Watchlist - First on mobile, Left column on desktop */}
+              <div className="order-1 lg:col-span-2 lg:order-none">
+                <Watchlist />
               </div>
 
-              {/* Right Column - Market Movers (1 column) */}
-              <div className="lg:col-span-1">
+              {/* Market Movers - Second on mobile, Right column on desktop */}
+              <div className="order-2 lg:col-span-1 lg:row-span-2 lg:order-none">
                 <HomePageData />
+              </div>
+              
+              {/* All Stocks - Third on mobile, Left column on desktop */}
+              <div className="order-3 lg:col-span-2 lg:order-none">
+                <AllStocks />
               </div>
             </div>
           </div>

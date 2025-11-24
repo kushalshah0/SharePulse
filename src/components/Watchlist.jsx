@@ -101,12 +101,15 @@ const Watchlist = () => {
     setTouchEnd(0);
   };
 
-  const filteredStocks = allStocks.filter(stock => 
-    !isInWatchlist(stock.symbol) && (
-      stock.symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (stock.securityName && stock.securityName.toLowerCase().includes(searchTerm.toLowerCase()))
-    )
-  );
+  // Optimize: Show only limited stocks initially, full list when searching
+  const filteredStocks = allStocks.filter(stock => {
+    if (isInWatchlist(stock.symbol)) return false;
+    
+    if (!searchTerm) return true; // Show stocks initially
+    
+    return stock.symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           (stock.securityName && stock.securityName.toLowerCase().includes(searchTerm.toLowerCase()));
+  }).slice(0, searchTerm ? 50 : 12); // Show 12 stocks initially, 50 when searching
 
   return (
     <div className="space-y-4">
@@ -164,9 +167,9 @@ const Watchlist = () => {
                   return (
                     <div 
                       key={stock.symbol}
-                      className="w-full flex-shrink-0 px-2"
+                      className="w-full flex-shrink-0"
                     >
-                      <div className="relative bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-md">
+                      <div className="relative bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-md mx-2">
                         {/* Remove Button */}
                         <button
                           onClick={() => removeFromWatchlist(stock.symbol)}
@@ -235,7 +238,7 @@ const Watchlist = () => {
           </div>
 
           {/* Desktop: Linear Horizontal Grid */}
-          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {watchlist.filter(stock => stock && stock.symbol).map((stock) => {
               const isPositive = stock.change >= 0;
               return (
@@ -357,8 +360,12 @@ const Watchlist = () => {
               ) : filteredStocks.length === 0 ? (
                 <div className="text-center py-16">
                   <MagnifyingGlassIcon className="h-12 w-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-                  <p className="text-gray-600 dark:text-gray-400 font-medium">No stocks found</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">Try a different search term</p>
+                  <p className="text-gray-600 dark:text-gray-400 font-medium">
+                    {searchTerm ? 'No stocks found' : 'Start typing to search'}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                    {searchTerm ? 'Try a different search term' : 'Search by stock symbol or company name'}
+                  </p>
                 </div>
               ) : (
                 <div className="space-y-1.5">
