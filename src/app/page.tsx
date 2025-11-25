@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <MarketDataProvider>
       <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-        <Navbar onSearchClick={() => {}} />
+        <Navbar />
       
       <main className="flex-grow">
         {/* Moving Marquee - Stock Prices */}
