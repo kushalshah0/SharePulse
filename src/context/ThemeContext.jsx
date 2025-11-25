@@ -13,15 +13,15 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   // Initialize theme on mount
   useEffect(() => {
     setMounted(true);
-    // Check localStorage for saved theme preference, default to dark mode
+    // Check localStorage for saved theme preference, default to light mode
     const savedTheme = localStorage.getItem('theme');
-    const prefersDark = savedTheme ? savedTheme === 'dark' : true;
+    const prefersDark = savedTheme ? savedTheme === 'dark' : false;
     setIsDarkMode(prefersDark);
     
     // Apply immediately to prevent flash
