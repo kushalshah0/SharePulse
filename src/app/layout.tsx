@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "SharePulse - NEPSE Trading Platform",
+  title: "SharePulse - NEPSE Live",
   description: "Real-time Nepal Stock Exchange (NEPSE) market data, live tracking, and analysis",
 };
 
