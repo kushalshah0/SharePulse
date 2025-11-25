@@ -78,17 +78,17 @@
 
 /* Continuous marquee animation - smoother and slower */
 @keyframes marquee-continuous {
-  from {
+  0% {
     transform: translate3d(0, 0, 0);
   }
-  to {
+  100% {
     transform: translate3d(-50%, 0, 0);
   }
 }
 
 .animate-marquee-continuous {
-  animation: marquee-continuous 20s linear infinite;
+  animation: marquee-continuous 45s linear infinite;
   will-change: transform;
-  backface-visibility: hidden;
-  -webkit-font-smoothing: subpixel-antialiased;
+  display: flex;
+  white-space: nowrap;
 }
