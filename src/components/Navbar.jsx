@@ -1,42 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { MagnifyingGlassIcon, SunIcon, MoonIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { ArrowPathIcon } from '@heroicons/react/24/solid';
+import Link from 'next/link';
+import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useTheme } from '../context/ThemeContext';
-import { useMarketData } from '../context/MarketDataContext';
 
-const Navbar = ({ onSearchClick }) => {
+const Navbar = () => {
   const { isDarkMode, toggleTheme } = useTheme();
-  const { refreshLiveData, refreshAllStocks, isMarketOpen } = useMarketData();
-  const [showSearch, setShowSearch] = useState(false);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-
-  const handleSearchClick = () => {
-    setShowSearch(true);
-    // Scroll to All Stocks section
-    const allStocksSection = document.getElementById('all-stocks');
-    if (allStocksSection) {
-      allStocksSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // Focus on search input after scroll
-      setTimeout(() => {
-        const searchInput = allStocksSection.querySelector('input[type="text"]');
-        if (searchInput) {
-          searchInput.focus();
-        }
-      }, 500);
-    }
-  };
-
-  const handleUniversalRefresh = async () => {
-    setIsRefreshing(true);
-    // Refresh both live data and all stocks simultaneously
-    await Promise.all([
-      refreshLiveData(),
-      refreshAllStocks()
-    ]);
-    setTimeout(() => setIsRefreshing(false), 500);
-  };
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <nav className="sticky top-0 z-50 py-4 px-4 sm:px-6 lg:px-8">
@@ -45,35 +16,22 @@ const Navbar = ({ onSearchClick }) => {
           <div className="flex justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">SharePulse</h1>
-              <p className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Real-time Market Tracker</p>
+              <Link href="/" className="block">
+                <h1 className="text-xl font-bold text-gray-900 dark:text-white">SharePulse</h1>
+                <p className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Real-time Market Tracker</p>
+              </Link>
             </div>
           </div>
 
-          {/* Right Side - Universal Refresh, Search and Theme Toggle */}
+          {/* Right Side - Floorsheet and Theme Toggle */}
           <div className="flex items-center space-x-2">
-            {/* Universal Refresh Button */}
-            <button 
-              onClick={handleUniversalRefresh}
-              disabled={isRefreshing}
-              className={`p-2 rounded-lg transition-all focus:outline-none ${
-                isRefreshing
-                  ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed'
-                  : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200/60 dark:hover:bg-gray-700/60 hover:scale-105 active:scale-95 backdrop-blur-sm'
-              }`}
-              title="Refresh all market data"
+            {/* Floorsheet Link - Desktop */}
+            <Link 
+              href="/nepse/floorsheet" 
+              className="hidden md:block px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200/60 dark:hover:bg-gray-700/60 rounded-lg transition-all"
             >
-              <ArrowPathIcon className={`h-5 w-5 ${isRefreshing ? 'animate-spin' : ''}`} />
-            </button>
-
-            {/* Search Button */}
-            <button 
-              onClick={handleSearchClick}
-              className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200/60 dark:hover:bg-gray-700/60 hover:scale-105 active:scale-95 backdrop-blur-sm transition-all focus:outline-none"
-              title="Search stocks"
-            >
-              <MagnifyingGlassIcon className="h-5 w-5" />
-            </button>
+              Floorsheet
+            </Link>
 
             {/* Theme Toggle Button */}
             <button
@@ -87,8 +45,36 @@ const Navbar = ({ onSearchClick }) => {
                 <MoonIcon className="h-5 w-5" />
               )}
             </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200/60 dark:hover:bg-gray-700/60 rounded-lg transition-all focus:outline-none"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? (
+                <XMarkIcon className="h-6 w-6" />
+              ) : (
+                <Bars3Icon className="h-6 w-6" />
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-gray-200 dark:border-gray-700">
+            <div className="px-4 py-3 space-y-1">
+              <Link
+                href="/nepse/floorsheet"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all"
+              >
+                Floorsheet
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
 
       </div>

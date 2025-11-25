@@ -47,6 +47,21 @@ export const api = {
     }
   },
 
+  // Get floorsheet data - used by Floorsheet page
+  getFloorsheet: async (size = 20, page = 1, symbol = '') => {
+    try {
+      let url = `/floorsheet?size=${size}&page=${page}`;
+      if (symbol) {
+        url += `&symbol=${encodeURIComponent(symbol)}`;
+      }
+      const response = await apiClient.get(url);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching floorsheet data:', error);
+      throw error;
+    }
+  },
+
   // Legacy method names for backward compatibility
   getLiveNepse: async () => {
     return api.getAllStocks();
