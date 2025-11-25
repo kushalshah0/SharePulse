@@ -6,6 +6,7 @@ import LiveNepseData from '@/components/LiveNepseData';
 import HomePageData from '@/components/HomePageData';
 import Watchlist from '@/components/Watchlist';
 import AllStocks from '@/components/AllStocks';
+import MarketPhaseIndicator from '@/components/MarketPhaseIndicator';
 import { MarketDataProvider } from '@/context/MarketDataContext';
 
 export default function Home() {
@@ -148,6 +149,11 @@ export default function Home() {
           {/* Live NEPSE Data */}
           <div className="mb-8 md:mb-12">
             <LiveNepseData />
+          </div>
+
+          {/* Market Phase Indicator */}
+          <div className="mb-6">
+            <MarketPhaseIndicator />
           </div>
 
           {/* Main Layout: Watchlist + All Stocks (Left) | Market Movers (Right) on Desktop */}
