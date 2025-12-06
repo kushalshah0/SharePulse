@@ -83,14 +83,130 @@ const LiveNepseData = () => {
 
   if (loading && !homeData) {
     return (
-      <div className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="stat-card animate-pulse">
-              <div className="h-4 bg-gray-200 rounded w-1/2 mb-3"></div>
-              <div className="h-8 bg-gray-200 rounded w-3/4"></div>
+      <div className="space-y-6">
+        {/* Main NEPSE Index Card Skeleton */}
+        <div className="relative overflow-hidden rounded-xl border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 md:p-6 animate-pulse">
+          {/* Market Status Skeleton - Top Right */}
+          <div className="absolute top-3 right-3 flex flex-col sm:flex-row items-end sm:items-center gap-2">
+            <div className="order-2 sm:order-1 h-7 w-32 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+            <div className="order-1 sm:order-2 h-7 w-20 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+          </div>
+
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            {/* Left Side: NEPSE Index Skeleton */}
+            <div className="flex-shrink-0">
+              <div className="flex items-center space-x-2 md:space-x-3 mb-3">
+                <div className="p-1.5 md:p-2 rounded-lg bg-gray-200 dark:bg-gray-700">
+                  <ChartBarIcon className="h-5 w-5 md:h-6 md:w-6 text-gray-400 dark:text-gray-600" />
+                </div>
+                <div>
+                  <h3 className="text-xs md:text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">NEPSE Index</h3>
+                  <p className="text-[10px] md:text-xs text-gray-600 dark:text-gray-400">Nepal Stock Exchange</p>
+                </div>
+              </div>
+              <div>
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-1">
+                  <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded w-40 animate-pulse"></div>
+                </div>
+                <div className="flex items-center space-x-1 md:space-x-2">
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-48 animate-pulse"></div>
+                </div>
+              </div>
+
+              {/* Mobile Market Stats Skeleton */}
+              <div className="lg:hidden mt-4 space-y-3">
+                <div className="bg-white dark:bg-gray-800 rounded-lg px-4 py-3 border border-gray-200 dark:border-gray-700 shadow-sm">
+                  <div className="flex items-center justify-around">
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} className="flex flex-col items-center text-center flex-1">
+                        <div className="p-1.5 bg-gray-200 dark:bg-gray-700 rounded mb-2">
+                          <div className="h-4 w-4 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                        </div>
+                        <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-12 mb-1 animate-pulse"></div>
+                        <div className="h-3.5 bg-gray-200 dark:bg-gray-700 rounded w-16 animate-pulse"></div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="bg-white dark:bg-gray-800 rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700 shadow-sm">
+                  <div className="flex items-center justify-around space-x-3">
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} className="text-center flex-1">
+                        <div className="flex justify-center mb-2">
+                          <div className="p-1.5 bg-gray-200 dark:bg-gray-700 rounded">
+                            <div className="h-4 w-4 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                          </div>
+                        </div>
+                        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-16 mb-1 mx-auto animate-pulse"></div>
+                        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-10 mx-auto animate-pulse"></div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
-          ))}
+
+            {/* Desktop Other Indices Skeleton */}
+            <div className="hidden lg:flex flex-col gap-2 self-center">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="bg-white dark:bg-gray-800 rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-700 min-w-[180px] space-y-2">
+                  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
+                  <div className="flex justify-between">
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                    <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop Stats Skeleton */}
+            <div className="hidden lg:flex flex-col gap-3 min-w-[600px]">
+              <div className="bg-white dark:bg-gray-800 rounded-xl px-4 py-2 border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="flex items-center gap-2 flex-1">
+                      <div className="w-7 h-7 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
+                      <div className="space-y-1">
+                        <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-white dark:bg-gray-800 rounded-xl px-4 py-2 border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center justify-between">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="flex flex-col items-center flex-1 space-y-2">
+                      <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                      <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-8"></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Slider Skeleton */}
+        <div className="md:hidden bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="px-4 py-3 animate-pulse">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-20 mb-1"></div>
+                <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
+              </div>
+              <div className="text-right">
+                <div className="h-3.5 bg-gray-200 dark:bg-gray-700 rounded w-16 ml-auto mb-1"></div>
+                <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-20 ml-auto"></div>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center justify-center gap-1.5 pb-2">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-1.5 w-1.5 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
+            ))}
+          </div>
         </div>
       </div>
     );

@@ -105,9 +105,99 @@ const AllStocks = () => {
 
   if (loading) {
     return (
-      <div className="card text-center py-12">
-        <div className="animate-spin h-12 w-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-        <p className="text-gray-400">Loading all stocks...</p>
+      <div id="all-stocks" className="space-y-4 bg-white/50 dark:bg-gray-800/30 rounded-2xl p-4 md:p-6 shadow-sm backdrop-blur-sm">
+        {/* Header */}
+        <div className="flex flex-wrap items-center gap-3 mb-4">
+          <div className="p-2 md:p-3 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl shadow-lg shadow-green-500/30">
+            <svg className="h-6 w-6 md:h-8 md:w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div className="flex-1 min-w-0">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">All Stocks</h2>
+            <p className="text-xs md:text-sm text-gray-400">Loading stocks data...</p>
+          </div>
+        </div>
+
+        {/* Filters Skeleton */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-3 animate-pulse">
+          <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2">
+            <div className="flex-1 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg"></div>
+            <div className="w-full md:w-auto h-10 bg-gray-100 dark:bg-gray-700 rounded-lg md:min-w-[140px]"></div>
+          </div>
+        </div>
+
+        {/* Table Skeleton */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gradient-to-r from-green-50 via-emerald-50 to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 border-b-2 border-green-200 dark:border-green-800/50">
+                <tr>
+                  <th className="px-2 py-2 md:px-4 md:py-3 text-left">
+                    <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase">Symbol</span>
+                  </th>
+                  <th className="px-2 py-2 md:px-4 md:py-3 text-right">
+                    <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase">LTP</span>
+                  </th>
+                  <th className="px-2 py-2 md:px-4 md:py-3 text-right">
+                    <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase">Change %</span>
+                  </th>
+                  <th className="px-2 py-2 md:px-4 md:py-3 text-right">
+                    <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase">Change</span>
+                  </th>
+                  <th className="px-2 py-2 md:px-4 md:py-3 text-right">
+                    <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase">High</span>
+                  </th>
+                  <th className="px-2 py-2 md:px-4 md:py-3 text-right">
+                    <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase">Low</span>
+                  </th>
+                  <th className="px-2 py-2 md:px-4 md:py-3 text-right">
+                    <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase">Volume</span>
+                  </th>
+                  <th className="px-2 py-2 md:px-4 md:py-3 text-right">
+                    <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase">Trades</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+                  <tr key={i} className="animate-pulse">
+                    <td className="px-2 py-2 md:px-4 md:py-3">
+                      <div className="flex items-center gap-1.5 md:gap-2">
+                        <div className="w-7 h-7 md:w-8 md:h-8 bg-gray-200 dark:bg-gray-700 rounded-lg flex-shrink-0"></div>
+                        <div className="space-y-1 min-w-0 flex-1">
+                          <div className="h-3.5 md:h-4 bg-gray-200 dark:bg-gray-700 rounded w-14 md:w-16"></div>
+                          <div className="h-2.5 md:h-3 bg-gray-200 dark:bg-gray-700 rounded w-20 md:w-24 hidden md:block"></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-2 py-2 md:px-4 md:py-3 text-right">
+                      <div className="h-3.5 md:h-4 bg-gray-200 dark:bg-gray-700 rounded w-12 md:w-16 ml-auto"></div>
+                    </td>
+                    <td className="px-2 py-2 md:px-4 md:py-3 text-right">
+                      <div className="h-5 md:h-6 bg-gray-200 dark:bg-gray-700 rounded-full w-12 md:w-16 ml-auto"></div>
+                    </td>
+                    <td className="px-2 py-2 md:px-4 md:py-3 text-right">
+                      <div className="h-3.5 md:h-4 bg-gray-200 dark:bg-gray-700 rounded w-10 md:w-12 ml-auto"></div>
+                    </td>
+                    <td className="px-2 py-2 md:px-4 md:py-3 text-right">
+                      <div className="h-3.5 md:h-4 bg-gray-200 dark:bg-gray-700 rounded w-10 md:w-14 ml-auto"></div>
+                    </td>
+                    <td className="px-2 py-2 md:px-4 md:py-3 text-right">
+                      <div className="h-3.5 md:h-4 bg-gray-200 dark:bg-gray-700 rounded w-10 md:w-14 ml-auto"></div>
+                    </td>
+                    <td className="px-2 py-2 md:px-4 md:py-3 text-right">
+                      <div className="h-3.5 md:h-4 bg-gray-200 dark:bg-gray-700 rounded w-12 md:w-16 ml-auto"></div>
+                    </td>
+                    <td className="px-2 py-2 md:px-4 md:py-3 text-right">
+                      <div className="h-3.5 md:h-4 bg-gray-200 dark:bg-gray-700 rounded w-10 md:w-12 ml-auto"></div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     );
   }
