@@ -148,40 +148,75 @@ const LiveNepseData = () => {
 
             {/* Desktop Other Indices Skeleton */}
             <div className="hidden lg:flex flex-col gap-2 self-center">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="bg-white dark:bg-gray-800 rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-700 min-w-[180px] space-y-2">
-                  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
-                  <div className="flex justify-between">
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
-                    <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="bg-white dark:bg-gray-800 rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-700 shadow-lg min-w-[180px]">
+                  <div className="h-2.5 bg-gray-200 dark:bg-gray-700 rounded w-20 mb-1 animate-pulse"></div>
+                  <div className="flex items-baseline justify-between gap-2">
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16 animate-pulse"></div>
+                    <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-20 animate-pulse"></div>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Desktop Stats Skeleton */}
-            <div className="hidden lg:flex flex-col gap-3 min-w-[600px]">
-              <div className="bg-white dark:bg-gray-800 rounded-xl px-4 py-2 border border-gray-200 dark:border-gray-700">
-                <div className="flex items-center justify-between">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="flex items-center gap-2 flex-1">
-                      <div className="w-7 h-7 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
-                      <div className="space-y-1">
-                        <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
-                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
-                      </div>
-                    </div>
-                  ))}
+            <div className="hidden lg:flex flex-col justify-center gap-3 min-w-[600px]">
+              {/* Row 1: Market Statistics */}
+              <div className="flex items-center justify-between bg-white dark:bg-gray-800 rounded-xl px-4 py-2 border border-gray-200 dark:border-gray-700 shadow-xl">
+                <div className="flex items-center gap-2 flex-1">
+                  <div className="p-1.5 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg shadow-sm">
+                    <div className="h-3.5 w-3.5 bg-blue-300 rounded"></div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="h-2.5 bg-gray-200 dark:bg-gray-700 rounded w-12 animate-pulse"></div>
+                    <div className="h-3.5 bg-gray-200 dark:bg-gray-700 rounded w-20 animate-pulse"></div>
+                  </div>
+                </div>
+
+                <div className="h-8 w-px bg-gray-300 dark:bg-gray-700 mx-3"></div>
+
+                <div className="flex items-center gap-2 flex-1">
+                  <div className="p-1.5 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg shadow-sm">
+                    <div className="h-3.5 w-3.5 bg-purple-300 rounded"></div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="h-2.5 bg-gray-200 dark:bg-gray-700 rounded w-12 animate-pulse"></div>
+                    <div className="h-3.5 bg-gray-200 dark:bg-gray-700 rounded w-16 animate-pulse"></div>
+                  </div>
+                </div>
+
+                <div className="h-8 w-px bg-gray-300 dark:bg-gray-700 mx-3"></div>
+
+                <div className="flex items-center gap-2 flex-1">
+                  <div className="p-1.5 bg-gradient-to-br from-orange-100 to-orange-200 rounded-lg shadow-sm">
+                    <div className="h-3.5 w-3.5 bg-orange-300 rounded"></div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="h-2.5 bg-gray-200 dark:bg-gray-700 rounded w-16 animate-pulse"></div>
+                    <div className="h-3.5 bg-gray-200 dark:bg-gray-700 rounded w-20 animate-pulse"></div>
+                  </div>
                 </div>
               </div>
-              <div className="bg-white dark:bg-gray-800 rounded-xl px-4 py-2 border border-gray-200 dark:border-gray-700">
-                <div className="flex items-center justify-between">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="flex flex-col items-center flex-1 space-y-2">
-                      <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
-                      <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-8"></div>
-                    </div>
-                  ))}
+
+              {/* Row 2: Stock Summary */}
+              <div className="flex items-center justify-between bg-white dark:bg-gray-800 rounded-xl px-4 py-2 border border-gray-200 dark:border-gray-700 shadow-xl">
+                <div className="text-center flex-1">
+                  <div className="h-2.5 bg-gray-200 dark:bg-gray-700 rounded w-16 mb-1 mx-auto animate-pulse"></div>
+                  <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-8 mx-auto animate-pulse"></div>
+                </div>
+
+                <div className="h-8 w-px bg-gray-300 dark:bg-gray-700 mx-3"></div>
+
+                <div className="text-center flex-1">
+                  <div className="h-2.5 bg-gray-200 dark:bg-gray-700 rounded w-16 mb-1 mx-auto animate-pulse"></div>
+                  <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-8 mx-auto animate-pulse"></div>
+                </div>
+
+                <div className="h-8 w-px bg-gray-300 dark:bg-gray-700 mx-3"></div>
+
+                <div className="text-center flex-1">
+                  <div className="h-2.5 bg-gray-200 dark:bg-gray-700 rounded w-16 mb-1 mx-auto animate-pulse"></div>
+                  <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-8 mx-auto animate-pulse"></div>
                 </div>
               </div>
             </div>

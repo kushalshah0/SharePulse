@@ -111,6 +111,78 @@ const Watchlist = () => {
            (stock.securityName && stock.securityName.toLowerCase().includes(searchTerm.toLowerCase()));
   }).slice(0, searchTerm ? 50 : 12); // Show 12 stocks initially, 50 when searching
 
+  // Show skeleton loader only when loading and watchlist hasn't been loaded yet
+  if (loading && watchlist.length === 0) {
+    return (
+      <div className="space-y-4">
+        {/* Watchlist Header */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 md:p-3 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl shadow-lg">
+              <HeartSolidIcon className="h-6 w-6 md:h-8 md:w-8 text-white" />
+            </div>
+            <div>
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">My Watchlist</h2>
+              <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">Loading your tracked stocks...</p>
+            </div>
+          </div>
+          <button
+            disabled
+            className="flex items-center space-x-2 bg-pink-400 text-white px-3 md:px-4 py-2 rounded-lg shadow-md opacity-50 cursor-not-allowed"
+          >
+            <PlusIcon className="h-4 w-4 md:h-5 md:w-5" />
+            <span className="text-xs md:text-sm font-semibold">Add Stock</span>
+          </button>
+        </div>
+
+        {/* Skeleton Loader - Mobile Carousel Style */}
+        <div className="md:hidden">
+          <div className="overflow-hidden rounded-xl">
+            <div className="relative bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-md mx-2">
+              <div className="flex items-start gap-3 animate-pulse">
+                <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-lg flex-shrink-0"></div>
+                <div className="flex-1 min-w-0 space-y-2">
+                  <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                  <div className="flex items-baseline gap-2 pt-2">
+                    <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                    <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded-full w-20"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Navigation Dots Skeleton */}
+          <div className="flex items-center justify-center gap-2 mt-4">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="h-2 w-2 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+            ))}
+          </div>
+        </div>
+
+        {/* Skeleton Loader - Desktop Grid */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="relative bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-md">
+              <div className="flex items-start gap-3 animate-pulse">
+                <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-lg flex-shrink-0"></div>
+                <div className="flex-1 min-w-0 space-y-2">
+                  <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                  <div className="flex items-baseline gap-2 pt-2">
+                    <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
+                    <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded-full w-20"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-4">
       {/* Watchlist Header */}

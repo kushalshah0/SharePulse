@@ -27,8 +27,31 @@ const StockMarquee = () => {
     return sortedByChange.slice(0, 12);
   }, [allStocks]);
 
-  if (allStocksLoading || marqueeStocks.length === 0) {
-    return null; // Don't show marquee while loading or if no data
+  if (allStocksLoading) {
+    // Skeleton loader for marquee
+    return (
+      <div className="px-4 sm:px-6 lg:px-8 mb-3">
+        <div className="relative overflow-hidden max-w-7xl mx-auto">
+          <div className="py-2 flex">
+            <div className="flex items-center space-x-4 animate-pulse">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl rounded-xl px-4 py-2 shadow-lg flex-shrink-0">
+                  <div className="flex items-center gap-3">
+                    <div className="h-4 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    <div className="h-4 w-20 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    <div className="h-5 w-14 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (marqueeStocks.length === 0) {
+    return null; // Don't show marquee if no data
   }
 
   const formatPrice = (price) => {
