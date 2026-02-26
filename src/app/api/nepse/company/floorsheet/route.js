@@ -27,7 +27,7 @@ export async function GET(request) {
       }
     );
 
-    return NextResponse.json(response.data);
+    return NextResponse.json(response.data.data);
   } catch (error) {
     console.error('Error fetching company floorsheet:', error.message);
     return NextResponse.json(

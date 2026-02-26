@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { ArrowTrendingUpIcon, ArrowTrendingDownIcon, ChartBarIcon } from '@heroicons/react/24/outline';
-import { getCurrentMarketPhase, MARKET_PHASES } from '@/utils/marketPhases';
 import api from '@/services/api';
 
 const CompanyPriceHistory = ({ symbol, compact = false }) => {
@@ -16,12 +15,6 @@ const CompanyPriceHistory = ({ symbol, compact = false }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        
-        const phase = getCurrentMarketPhase();
-        if (phase === MARKET_PHASES.CLOSED) {
-          setLoading(false);
-          return;
-        }
         
         const response = await api.getCompanyPriceHistory(symbol, pageSize, page);
         setData(response.data);
