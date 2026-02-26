@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import api from '../services/api';
 import { 
   getCurrentMarketPhase, 
@@ -35,8 +35,17 @@ export const MarketDataProvider = ({ children }) => {
   const [isMarketOpen, setIsMarketOpen] = useState(false);
   const [hasInitialData, setHasInitialData] = useState(false);
 
+  // Refs to prevent duplicate calls
+  const isFetchingLiveData = useRef(false);
+  const isFetchingAllStocks = useRef(false);
+  const hasInitialized = useRef(false);
+
   // Fetch live data with retry logic
   const fetchLiveData = async (retryCount = 0, maxRetries = 3) => {
+    // Prevent duplicate calls
+    if (isFetchingLiveData.current) return;
+    isFetchingLiveData.current = true;
+    
     try {
       const data = await api.getLiveData();
       setLiveData(data);
@@ -66,11 +75,17 @@ export const MarketDataProvider = ({ children }) => {
       setLiveDataError('Failed to fetch live data');
       setLiveDataLoading(false);
       return false; // Failed
+    } finally {
+      isFetchingLiveData.current = false;
     }
   };
 
   // Fetch all stocks with retry logic
   const fetchAllStocks = async (retryCount = 0, maxRetries = 3) => {
+    // Prevent duplicate calls
+    if (isFetchingAllStocks.current) return;
+    isFetchingAllStocks.current = true;
+    
     try {
       const response = await api.getAllStocks();
       // Handle both possible data structures: response.data or response.liveStocks
@@ -117,6 +132,8 @@ export const MarketDataProvider = ({ children }) => {
       setAllStocksError('Failed to fetch stocks data');
       setAllStocksLoading(false);
       return false; // Failed
+    } finally {
+      isFetchingAllStocks.current = false;
     }
   };
 
@@ -124,6 +141,10 @@ export const MarketDataProvider = ({ children }) => {
   useEffect(() => {
     // Only run on client side
     if (typeof window === 'undefined') return;
+    
+    // Prevent duplicate initialization (React Strict Mode)
+    if (hasInitialized.current) return;
+    hasInitialized.current = true;
     
     // Check if market is active
     const currentPhase = getCurrentMarketPhase();
