@@ -17,7 +17,7 @@ const CompanyFloorsheet = ({ symbol, compact = false }) => {
         setLoading(true);
         
         const response = await api.getCompanyFloorsheet(symbol, pageSize, page);
-        setData(response.data);
+        setData(response);
       } catch (err) {
         setError(err.message);
       } finally {

@@ -14,7 +14,7 @@ const CompanyAnnouncements = ({ symbol, compact = false }) => {
       try {
         setLoading(true);
         const response = await api.getCompanyAnnouncements(symbol, compact ? 3 : 8, 1);
-        setData(response.data);
+        setData(response);
       } catch (err) {
         setError(err.message);
       } finally {

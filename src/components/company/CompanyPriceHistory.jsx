@@ -17,7 +17,7 @@ const CompanyPriceHistory = ({ symbol, compact = false }) => {
         setLoading(true);
         
         const response = await api.getCompanyPriceHistory(symbol, pageSize, page);
-        setData(response.data);
+        setData(response);
       } catch (err) {
         setError(err.message);
       } finally {

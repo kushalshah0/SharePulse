@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/react/24/solid';
-import { getCurrentMarketPhase, MARKET_PHASES } from '@/utils/marketPhases';
 import api from '@/services/api';
 
 const CompanyMarketDepth = ({ symbol }) => {
@@ -15,14 +14,8 @@ const CompanyMarketDepth = ({ symbol }) => {
       try {
         setLoading(true);
         
-        const phase = getCurrentMarketPhase();
-        if (phase === MARKET_PHASES.CLOSED) {
-          setLoading(false);
-          return;
-        }
-        
         const response = await api.getCompanyMarketDepth(symbol);
-        setData(response.data);
+        setData(response);
       } catch (err) {
         setError(err.message);
       } finally {

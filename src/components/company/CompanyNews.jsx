@@ -44,7 +44,7 @@ const CompanyNews = ({ symbol, compact = false }) => {
     );
   }
 
-  if (error || !data || !data.data || !data.data.content || data.data.content.length === 0) {
+  if (error || !data || !data.content || data.content.length === 0) {
     return (
       <div className={`bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-200 dark:border-gray-700 ${compact ? 'h-full' : ''}`}>
         <div className="flex items-center gap-2 mb-3">
@@ -58,7 +58,7 @@ const CompanyNews = ({ symbol, compact = false }) => {
     );
   }
 
-  const newsData = data?.data?.content || [];
+  const newsData = data?.content || [];
   const displayData = compact ? newsData.slice(0, 3) : newsData.slice(0, 6);
 
   return (
