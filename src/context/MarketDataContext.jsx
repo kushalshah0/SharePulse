@@ -83,6 +83,10 @@ export const MarketDataProvider = ({ children }) => {
         setAllStocks(uniqueStocks);
         setAllStocksError(null);
         setAllStocksLoading(false);
+        
+        // Cache the data for offline/closed market use
+        localStorage.setItem('all_stocks_cache', JSON.stringify(uniqueStocks));
+        localStorage.setItem('all_stocks_cache_time', Date.now().toString());
       } else {
         setAllStocks([]);
         setAllStocksLoading(false);
@@ -91,6 +95,15 @@ export const MarketDataProvider = ({ children }) => {
       return true; // Success
     } catch (err) {
       console.error(`Error fetching all stocks (attempt ${retryCount + 1}/${maxRetries + 1}):`, err);
+      
+      // Try to load from cache on error
+      const cached = localStorage.getItem('all_stocks_cache');
+      if (cached) {
+        console.log('Loading stocks from cache');
+        setAllStocks(JSON.parse(cached));
+        setAllStocksLoading(false);
+        return true;
+      }
       
       // Retry logic
       if (retryCount < maxRetries) {
@@ -112,59 +125,48 @@ export const MarketDataProvider = ({ children }) => {
     // Only run on client side
     if (typeof window === 'undefined') return;
     
-    // Fetch immediately on mount
+    // Check if market is active
+    const currentPhase = getCurrentMarketPhase();
+    setMarketPhase(currentPhase);
+    setIsMarketOpen(currentPhase === MARKET_PHASES.OPEN);
+
+    // Always try to fetch data - API should still work outside market hours
+    console.log(`Fetching data (market phase: ${currentPhase})`);
     fetchLiveData();
     fetchAllStocks();
-
-    // No intervals on initial mount - they will be set up by the market status effect
-    // This prevents double interval setup
   }, []);
 
-  // Monitor market phase changes
+  // Monitor market phase changes and set up polling
   useEffect(() => {
     // Only run on client side
     if (typeof window === 'undefined') return;
+
+    // Skip if we haven't fetched initial data yet
+    if (!hasInitialData) return;
 
     // Update market phase every 30 seconds
     const phaseCheckInterval = setInterval(() => {
       const currentPhase = getCurrentMarketPhase();
       setMarketPhase(currentPhase);
-      
-      // Update isMarketOpen for backward compatibility
       setIsMarketOpen(currentPhase === MARKET_PHASES.OPEN);
     }, 30000); // Check every 30 seconds
 
-    return () => clearInterval(phaseCheckInterval);
-  }, []);
-
-  // Update intervals based on market phase
-  useEffect(() => {
-    // Skip until we have initial data
-    if (!hasInitialData) return;
-
-    // Only run on client side
-    if (typeof window === 'undefined') return;
-
+    // Only set up polling if market is active
+    const intervals = getPollingIntervals();
+    
     let liveDataInterval;
     let allStocksInterval;
 
-    // Get polling intervals for current market phase
-    const intervals = getPollingIntervals();
-    
-    console.log(`Market Phase: ${marketPhase}`, intervals);
-
     if (intervals.liveData && intervals.allStocks) {
-      // Market is active (pre-opening, open, or post-close) - start polling
-      console.log(`Starting polling - Live: ${intervals.liveData}ms, Stocks: ${intervals.allStocks}ms`);
+      console.log(`Market is active - setting up polling`);
       liveDataInterval = setInterval(fetchLiveData, intervals.liveData);
       allStocksInterval = setInterval(fetchAllStocks, intervals.allStocks);
     } else {
-      // Market is closed - no polling
-      console.log('Market is CLOSED - No automatic polling (data fetched once)');
+      console.log(`Market is closed - no polling`);
     }
 
-    // Cleanup intervals when market phase changes or component unmounts
     return () => {
+      clearInterval(phaseCheckInterval);
       if (liveDataInterval) clearInterval(liveDataInterval);
       if (allStocksInterval) clearInterval(allStocksInterval);
     };

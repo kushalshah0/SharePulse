@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { MarketDataProvider } from "@/context/MarketDataContext";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -35,7 +36,9 @@ export default function RootLayout({
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <ThemeProvider>
-          {children}
+          <MarketDataProvider>
+            {children}
+          </MarketDataProvider>
         </ThemeProvider>
       </body>
     </html>

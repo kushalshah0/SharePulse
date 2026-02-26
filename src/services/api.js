@@ -70,6 +70,86 @@ export const api = {
   getHomePageData: async () => {
     return api.getLiveData();
   },
+
+  getCompanyOverview: async (symbol) => {
+    try {
+      const response = await apiClient.get(`/company/overview?symbol=${encodeURIComponent(symbol)}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching company overview:', error);
+      throw error;
+    }
+  },
+
+  getCompanyMarketDepth: async (symbol) => {
+    try {
+      const response = await apiClient.get(`/company/market-depth?symbol=${encodeURIComponent(symbol)}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching market depth:', error);
+      throw error;
+    }
+  },
+
+  getCompanyFloorsheet: async (symbol, size = 10, page = 1) => {
+    try {
+      const response = await apiClient.get(`/company/floorsheet?symbol=${encodeURIComponent(symbol)}&size=${size}&page=${page}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching company floorsheet:', error);
+      throw error;
+    }
+  },
+
+  getCompanyBulkTransactions: async (symbol, pageSize = 10, minimumQuantity = 3000) => {
+    try {
+      const response = await apiClient.get(`/company/bulk-transactions?symbol=${encodeURIComponent(symbol)}&pageSize=${pageSize}&MinimumQuantity=${minimumQuantity}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching bulk transactions:', error);
+      throw error;
+    }
+  },
+
+  getCompanyPriceHistory: async (symbol, pageSize = 10, page = 1) => {
+    try {
+      const response = await apiClient.get(`/company/price-history?symbol=${encodeURIComponent(symbol)}&pageSize=${pageSize}&page=${page}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching price history:', error);
+      throw error;
+    }
+  },
+
+  getCompanyDividend: async (symbol, limit = 50) => {
+    try {
+      const response = await apiClient.get(`/company/dividend?symbol=${encodeURIComponent(symbol)}&limit=${limit}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching dividend:', error);
+      throw error;
+    }
+  },
+
+  getCompanyNews: async (symbol, limit = 6) => {
+    try {
+      const response = await apiClient.get(`/company/news?symbol=${encodeURIComponent(symbol)}&limit=${limit}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching news:', error);
+      throw error;
+    }
+  },
+
+  getCompanyAnnouncements: async (symbol, size = 8, page = 1) => {
+    try {
+      const response = await apiClient.get(`/company/announcements?symbol=${encodeURIComponent(symbol)}&size=${size}&page=${page}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching announcements:', error);
+      throw error;
+    }
+  },
 };
 
 export default api;

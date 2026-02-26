@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { 
-  HeartIcon,
+  EyeIcon,
   XMarkIcon,
   MagnifyingGlassIcon,
   PlusIcon
 } from '@heroicons/react/24/outline';
-import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
+import { EyeIcon as EyeSolidIcon } from '@heroicons/react/24/solid';
 import { useMarketData } from '../context/MarketDataContext';
 
 const Watchlist = () => {
@@ -118,8 +118,8 @@ const Watchlist = () => {
         {/* Watchlist Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2 md:p-3 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl shadow-lg">
-              <HeartSolidIcon className="h-6 w-6 md:h-8 md:w-8 text-white" />
+            <div className="p-2 md:p-3 bg-blue-600 rounded-xl shadow-lg">
+              <EyeSolidIcon className="h-6 w-6 md:h-8 md:w-8 text-white" />
             </div>
             <div>
               <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">My Watchlist</h2>
@@ -128,7 +128,7 @@ const Watchlist = () => {
           </div>
           <button
             disabled
-            className="flex items-center space-x-2 bg-pink-400 text-white px-3 md:px-4 py-2 rounded-lg shadow-md opacity-50 cursor-not-allowed"
+            className="flex items-center space-x-2 bg-blue-400 text-white px-3 md:px-4 py-2 rounded-lg shadow-md opacity-50 cursor-not-allowed"
           >
             <PlusIcon className="h-4 w-4 md:h-5 md:w-5" />
             <span className="text-xs md:text-sm font-semibold">Add Stock</span>
@@ -188,8 +188,8 @@ const Watchlist = () => {
       {/* Watchlist Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="p-2 md:p-3 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl shadow-lg">
-            <HeartSolidIcon className="h-6 w-6 md:h-8 md:w-8 text-white" />
+          <div className="p-2 md:p-3 bg-blue-600 rounded-xl shadow-lg">
+            <EyeSolidIcon className="h-6 w-6 md:h-8 md:w-8 text-white" />
           </div>
           <div>
             <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">My Watchlist</h2>
@@ -198,7 +198,7 @@ const Watchlist = () => {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center space-x-2 bg-pink-600 hover:bg-pink-700 text-white px-3 md:px-4 py-2 rounded-lg transition-colors shadow-md"
+          className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3 md:px-4 py-2 rounded-lg transition-colors shadow-md"
         >
           <PlusIcon className="h-4 w-4 md:h-5 md:w-5" />
           <span className="text-xs md:text-sm font-semibold">Add Stock</span>
@@ -208,12 +208,12 @@ const Watchlist = () => {
       {/* Watchlist Content */}
       {watchlist.length === 0 ? (
         <div className="card text-center py-12">
-          <HeartIcon className="h-16 w-16 text-gray-400 dark:text-gray-300 mx-auto mb-4" />
+          <EyeIcon className="h-16 w-16 text-gray-400 dark:text-gray-300 mx-auto mb-4" />
           <p className="text-gray-600 dark:text-gray-400 text-lg mb-2">Your watchlist is empty</p>
           <p className="text-gray-600 dark:text-gray-500 text-sm mb-4">Add stocks to track their performance</p>
           <button
             onClick={() => setShowAddModal(true)}
-            className="inline-flex items-center space-x-2 bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-lg transition-colors"
+            className="inline-flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
           >
             <PlusIcon className="h-5 w-5" />
             <span className="font-semibold">Add Your First Stock</span>
@@ -300,7 +300,7 @@ const Watchlist = () => {
                     key={idx}
                     onClick={() => setCurrentSlide(idx)}
                     className={`h-2 rounded-full transition-all duration-300 ${
-                      idx === currentSlide ? 'w-8 bg-pink-600' : 'w-2 bg-gray-300 dark:bg-gray-600'
+                      idx === currentSlide ? 'w-8 bg-blue-600' : 'w-2 bg-gray-300 dark:bg-gray-600'
                     }`}
                     aria-label={`Go to slide ${idx + 1}`}
                   />
@@ -383,7 +383,7 @@ const Watchlist = () => {
             {/* Modal Header */}
             <div className="flex items-center justify-between p-5 border-b border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-gradient-to-br from-pink-500 to-rose-600 rounded-lg">
+                <div className="p-2 bg-blue-600 rounded-lg">
                   <PlusIcon className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -475,7 +475,7 @@ const Watchlist = () => {
                         </div>
 
                         {/* Add Icon */}
-                        <div className="p-1.5 rounded-lg bg-pink-100 dark:bg-pink-900/30 group-hover:bg-pink-200 dark:group-hover:bg-pink-900/50 transition-colors">
+                        <div className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 group-hover:bg-blue-200 dark:group-hover:bg-blue-900/50 transition-colors">
                           <PlusIcon className="h-4 w-4 text-pink-600 dark:text-pink-400" />
                         </div>
                       </button>

@@ -324,14 +324,14 @@ const AllStocks = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+              <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
               {currentStocks.map((stock, index) => {
                 const isPositive = stock.change >= 0;
                 const bgColor = isPositive 
                   ? 'bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30' 
                   : 'bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30';
                 return (
-                  <tr key={index} className={`transition-colors ${bgColor}`}>
+                  <tr key={index} className={`transition-colors ${bgColor} cursor-pointer`} onClick={() => window.location.href = `/company/${stock.symbol}`}>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         {stock.iconUrl ? (
