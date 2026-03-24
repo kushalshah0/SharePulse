@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { 
   TrophyIcon, 
   ArrowTrendingDownIcon,
@@ -110,33 +111,35 @@ const HomePageData = () => {
           ) : (
             <div className="space-y-2">
               {topGainers.slice(0, 5).map((stock, index) => (
-                <div key={index} className="flex items-center gap-2 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
-                  <span className="text-xs font-bold text-gray-400 w-5">#{index + 1}</span>
-                  {stock.icon ? (
-                    <img 
-                      src={stock.icon.startsWith('http') ? stock.icon : `https://cdn.arthakendra.com/${stock.icon}`} 
-                      alt={stock.symbol}
-                      className="w-8 h-8 rounded-lg object-contain border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 p-1"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(stock.symbol)}&background=10B981&color=fff&size=64&bold=true&font-size=0.4`;
-                      }}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white font-bold text-xs">
-                      {stock?.symbol?.substring(0, 2) || '??'}
+                <Link key={index} href={`/company/${stock.symbol}`} className="block">
+                  <div className="flex items-center gap-2 p-2 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg transition-colors cursor-pointer">
+                    <span className="text-xs font-bold text-gray-400 w-5">#{index + 1}</span>
+                    {stock.icon ? (
+                      <img 
+                        src={stock.icon.startsWith('http') ? stock.icon : `https://cdn.arthakendra.com/${stock.icon}`} 
+                        alt={stock.symbol}
+                        className="w-8 h-8 rounded-lg object-contain border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 p-1"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(stock.symbol)}&background=10B981&color=fff&size=64&bold=true&font-size=0.4`;
+                        }}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white font-bold text-xs">
+                        {stock?.symbol?.substring(0, 2) || '??'}
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-sm text-gray-900 dark:text-white truncate">{stock.symbol}</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400"><span className="inline-block">रु {stock.lastTradedPrice?.toFixed(2)}</span></p>
                     </div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-bold text-sm text-gray-900 dark:text-white truncate">{stock.symbol}</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400"><span className="inline-block">रु {stock.lastTradedPrice?.toFixed(2)}</span></p>
+                    <div className="text-right">
+                      <p className="text-xs font-bold text-green-600">+{stock.changePercent?.toFixed(2)}%</p>
+                      <p className="text-[10px] text-gray-500">+{stock.change?.toFixed(2)}</p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-xs font-bold text-green-600">+{stock.changePercent?.toFixed(2)}%</p>
-                    <p className="text-[10px] text-gray-500">+{stock.change?.toFixed(2)}</p>
-                  </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}
@@ -156,33 +159,35 @@ const HomePageData = () => {
           ) : (
             <div className="space-y-2">
               {topLosers.slice(0, 5).map((stock, index) => (
-                <div key={index} className="flex items-center gap-2 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
-                  <span className="text-xs font-bold text-gray-400 w-5">#{index + 1}</span>
-                  {stock.icon ? (
-                    <img 
-                      src={stock.icon.startsWith('http') ? stock.icon : `https://cdn.arthakendra.com/${stock.icon}`} 
-                      alt={stock.symbol}
-                      className="w-8 h-8 rounded-lg object-contain border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 p-1"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(stock.symbol)}&background=EF4444&color=fff&size=64&bold=true&font-size=0.4`;
-                      }}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center text-white font-bold text-xs">
-                      {stock?.symbol?.substring(0, 2) || '??'}
+                <Link key={index} href={`/company/${stock.symbol}`} className="block">
+                  <div className="flex items-center gap-2 p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors cursor-pointer">
+                    <span className="text-xs font-bold text-gray-400 w-5">#{index + 1}</span>
+                    {stock.icon ? (
+                      <img 
+                        src={stock.icon.startsWith('http') ? stock.icon : `https://cdn.arthakendra.com/${stock.icon}`} 
+                        alt={stock.symbol}
+                        className="w-8 h-8 rounded-lg object-contain border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 p-1"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(stock.symbol)}&background=EF4444&color=fff&size=64&bold=true&font-size=0.4`;
+                        }}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center text-white font-bold text-xs">
+                        {stock?.symbol?.substring(0, 2) || '??'}
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-sm text-gray-900 dark:text-white truncate">{stock.symbol}</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400"><span className="inline-block">रु {stock.lastTradedPrice?.toFixed(2)}</span></p>
                     </div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-bold text-sm text-gray-900 dark:text-white truncate">{stock.symbol}</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400"><span className="inline-block">रु {stock.lastTradedPrice?.toFixed(2)}</span></p>
+                    <div className="text-right">
+                      <p className="text-xs font-bold text-red-600">{stock.changePercent?.toFixed(2)}%</p>
+                      <p className="text-[10px] text-gray-500">{stock.change?.toFixed(2)}</p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-xs font-bold text-red-600">{stock.changePercent?.toFixed(2)}%</p>
-                    <p className="text-[10px] text-gray-500">{stock.change?.toFixed(2)}</p>
-                  </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}
