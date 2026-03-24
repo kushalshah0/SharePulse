@@ -68,20 +68,20 @@ const CompanyNews = ({ symbol, compact = false }) => {
         <h3 className="text-sm font-semibold text-gray-900 dark:text-white">News</h3>
       </div>
       
-      <div className={`space-y-2 ${compact ? 'max-h-[200px] overflow-y-auto' : ''}`}>
+      <div className={`grid grid-cols-1 ${compact ? 'sm:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-3'} gap-3`}>
         {displayData.map((item, index) => (
           <a
             key={index}
-            href={item.url || item.link || '#'}
+            href={`https://english.arthakendra.com/news/${item.id}`}
             target="_blank"
             rel="noopener noreferrer"
             className="block group"
           >
-            <div className="p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-              <h4 className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 text-xs">
+            <div className="h-full p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border border-gray-100 dark:border-gray-700">
+              <h4 className="font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 text-xs mb-1">
                 {item.title}
               </h4>
-              <p className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-[10px] text-gray-500 dark:text-gray-400">
                 {formatDate(item.publishedDate || item.date)}
               </p>
             </div>
