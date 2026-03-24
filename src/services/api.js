@@ -121,9 +121,9 @@ export const api = {
     }
   },
 
-  getCompanyDividend: async (symbol, pageSize = 10, page = 1) => {
+  getCompanyDividend: async (symbol, limit = 50, page = 1) => {
     try {
-      const response = await apiClient.get(`/company/dividend?symbol=${encodeURIComponent(symbol)}&pageSize=${pageSize}&page=${page}`);
+      const response = await apiClient.get(`/company/dividend?symbol=${encodeURIComponent(symbol)}&limit=${limit}&page=${page}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching dividend:', error);

@@ -7,6 +7,7 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const symbol = searchParams.get('symbol');
   const limit = searchParams.get('limit') || '50';
+  const page = searchParams.get('page') || '1';
 
   if (!symbol) {
     return NextResponse.json(
@@ -17,7 +18,7 @@ export async function GET(request) {
 
   try {
     const response = await axios.get(
-      `${BASE_URL}/data/api/v1/dividend?symbol=${encodeURIComponent(symbol)}&limit=${limit}`,
+      `${BASE_URL}/data/api/v1/dividend?symbol=${encodeURIComponent(symbol)}&limit=${limit}&page=${page}`,
       {
         timeout: 15000,
         headers: {
