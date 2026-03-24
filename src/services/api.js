@@ -131,6 +131,16 @@ export const api = {
     }
   },
 
+  getCompanyRightShares: async (symbol, pageSize = 10) => {
+    try {
+      const response = await apiClient.get(`/company/right-shares?symbol=${encodeURIComponent(symbol)}&pageSize=${pageSize}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching right shares:', error);
+      throw error;
+    }
+  },
+
   getCompanyNews: async (symbol, limit = 6) => {
     try {
       const response = await apiClient.get(`/company/news?symbol=${encodeURIComponent(symbol)}&limit=${limit}`);

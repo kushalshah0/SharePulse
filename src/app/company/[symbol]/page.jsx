@@ -9,6 +9,7 @@ import CompanyMarketDepth from '@/components/company/CompanyMarketDepth';
 import CompanyFloorsheet from '@/components/company/CompanyFloorsheet';
 import CompanyPriceHistory from '@/components/company/CompanyPriceHistory';
 import CompanyDividend from '@/components/company/CompanyDividend';
+import CompanyRightShares from '@/components/company/CompanyRightShares';
 import CompanyNews from '@/components/company/CompanyNews';
 import CompanyAnnouncements from '@/components/company/CompanyAnnouncements';
 import {
@@ -16,6 +17,7 @@ import {
   ChartBarIcon,
   DocumentTextIcon,
   CurrencyDollarIcon,
+  ShareIcon,
   NewspaperIcon,
   MegaphoneIcon,
   ClockIcon
@@ -27,6 +29,7 @@ const tabs = [
   { id: 'floorsheet', label: 'Floorsheet', icon: DocumentTextIcon },
   { id: 'history', label: 'Price History', icon: ClockIcon },
   { id: 'dividend', label: 'Dividend', icon: CurrencyDollarIcon },
+  { id: 'right-shares', label: 'Right Shares', icon: ShareIcon },
   { id: 'news', label: 'News', icon: NewspaperIcon },
   { id: 'announcements', label: 'Announcements', icon: MegaphoneIcon },
 ];
@@ -128,6 +131,10 @@ export default function CompanyPage() {
 
                 {activeTab === 'dividend' && (
                   <CompanyDividend symbol={symbol} />
+                )}
+
+                {activeTab === 'right-shares' && (
+                  <CompanyRightShares symbol={symbol} />
                 )}
 
                 {activeTab === 'news' && (
