@@ -16,7 +16,7 @@ export async function GET(request) {
 
   try {
     const allStocksResponse = await axios.get(
-      `${BASE_URL}/live/api/v2/nepselive/live-nepse`,
+      `${BASE_URL}/live/api/v1/nepselive/live-nepse`,
       {
         timeout: 15000,
         headers: {
@@ -48,7 +48,19 @@ export async function GET(request) {
       }
     );
 
-    return NextResponse.json(response.data);
+    const marketDepth = response.data?.marketDepth || {};
+    const buyOrders = (marketDepth.buyMarketDepthList || []).map(order => ({
+      price: order.orderBookOrderPrice,
+      quantity: order.quantity,
+      orderCount: order.orderCount
+    }));
+    const sellOrders = (marketDepth.sellMarketDepthList || []).map(order => ({
+      price: order.orderBookOrderPrice,
+      quantity: order.quantity,
+      orderCount: order.orderCount
+    }));
+
+    return NextResponse.json({ buyOrders, sellOrders });
   } catch (error) {
     console.error('Error fetching market depth:', error.message);
     return NextResponse.json({
